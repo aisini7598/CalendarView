@@ -47,7 +47,7 @@
     [super viewDidLoad];
     
     CalendarView *calendarView = [[CalendarView alloc] initWithFrame:CGRectMake(0, 100, self.view.frame.size.width, 300)];
-    calendarView.currentMode = ECalendarShowModeMonth;
+    calendarView.currentMode = ECalendarShowModeWeek;
     
     [self.view addSubview:calendarView];
 //    calendarView.currentDay = [CalendarUtil todayDateline];

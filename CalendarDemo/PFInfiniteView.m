@@ -15,6 +15,8 @@ NSInteger infinitePageCount = 3;
 @property (nonatomic, copy) NSArray *pageViews;
 @property (nonatomic, weak) UIScrollView *infiniteContainer;
 
+@property (nonatomic) CGFloat lastOffsetX;
+
 @end
 
 @implementation PFInfiniteView
@@ -22,6 +24,7 @@ NSInteger infinitePageCount = 3;
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
+        _allowInfinite = YES;
         [self initViews];
     }
     return self;
@@ -33,6 +36,7 @@ NSInteger infinitePageCount = 3;
     containerView.delegate = self;
     containerView.showsHorizontalScrollIndicator = NO;
     containerView.clipsToBounds = NO;
+    containerView.bounces = NO;
     [self addSubview:containerView];
     _infiniteContainer = containerView;
 }
@@ -133,19 +137,25 @@ NSInteger infinitePageCount = 3;
         if (self.delegate && [self.delegate respondsToSelector:@selector(infiniteView:scrollToLeft:)]) {
             [self.delegate infiniteView:self scrollToLeft:isLeft];
         }
-        [self p_reloadPageView];
+        
         scrollView.contentOffset = CGPointMake([self middleIndex] * scrollView.frame.size.width, 0);
     }
+    [self p_reloadPageView];
     if (self.delegate && [self.delegate respondsToSelector:@selector(infiniteViewEndScroll:)]) {
         [self.delegate infiniteViewEndScroll:self];
     }
 }
 
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+
+}
+
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    
     if (self.delegate && [self.delegate respondsToSelector:@selector(infiniteViewBeginScroll:)]) {
         [self.delegate infiniteViewBeginScroll:self];
     }
-    
+    _lastOffsetX = scrollView.contentOffset.x;
 }
 
 - (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView {

@@ -38,6 +38,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, weak)id<PFInfiniteViewDatasource> datasource;
 @property (nonatomic, weak)id<PFInfiniteViewDelegate> delegate;
+@property (nonatomic) BOOL allowInfinite; // default is YES
+
 
 
 - (NSInteger)middleIndex;

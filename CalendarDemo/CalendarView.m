@@ -235,8 +235,6 @@ static CGFloat weeklyHeight () {return 50;}
         } else {
             self.currentDay = [CalendarUtil dateline:self.currentDay offsetByMonth:isLeft ?: -1];
         }
-//        self.currentDay = self.currentDay == [CalendarUtil todayDateline] ? self.currentDay : self.currentMonthDay;
-        
         if ([CalendarUtil firstDayOfMonth:self.currentDay] != self.currentMonthDay) {
             self.currentDay = self.currentMonthDay;
         }
@@ -294,7 +292,6 @@ static CGFloat weeklyHeight () {return 50;}
     if (self.currentMode == ECalendarShowModeWeek) {
         for (NSInteger i = 0; i < 3; i++) {
             CalendarPageBaseView *pageView = (CalendarPageBaseView *)[self.infiniteView pageOfIndex:i];
-            
             CGRect frame = self.bounds;
             frame.origin.y = -weeklyHeight();
             pageView.weekCoverView.frame = frame;
